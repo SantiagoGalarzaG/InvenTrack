@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Animaciones exclusivas ---------- */
+@layer utilities {
+
+  /* contorno de neón animado */
+  @keyframes neonStroke {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* burbujas orgánicas */
+  @keyframes blob {
+    0%,100% { transform: translate(-50%,-50%) scale(1); }
+    33%     { transform: translate(-40%,-60%) scale(1.1); }
+    66%     { transform: translate(-60%,-40%) scale(0.9); }
+  }
+
+  /* aparición de la tarjeta */
+  @keyframes cardPop {
+    0%   { opacity:0; transform:translateY(30px) scale(.92) rotateX(10deg); }
+    100% { opacity:1; transform:translateY(0)    scale(1)    rotateX(0deg); }
+  }
+
+  /* brillo que recorre los links */
+  @keyframes linkShine {
+    0%   { background-position:-200% 0; }
+    100% { background-position:200% 0; }
+  }
+
+  /* utilidades */
+  .border-neon { position:relative; isolation:isolate; }
+  .border-neon::before{
+    content:""; position:absolute; inset:0; padding:3px; border-radius:inherit;
+    background:linear-gradient(120deg,#0049ff,#009dff,#00e4ff,#0049ff);
+    background-size:200% 200%; animation:neonStroke 6s linear infinite;
+    filter:drop-shadow(0 0 6px #009dffcc);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; z-index:-1;
+  }
+
+  .animate-card-pop{ animation:cardPop .8s cubic-bezier(.25,.8,.25,1) both; }
+
+  .link-neon{
+    background:linear-gradient(90deg,transparent 0%,#00d2ff 50%,transparent 100%);
+    background-size:200% 100%; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  
+  .hover\:shine:hover{ animation:linkShine 1.5s linear forwards; }
+}
